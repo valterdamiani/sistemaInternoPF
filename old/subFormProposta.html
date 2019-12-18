@@ -1,0 +1,878 @@
+<style>
+    /* ######################################## Start of page styling ######################################## */
+    
+    .referencias {
+        color: #94cf1c;
+        color: #002941;
+        color: #2d8dc9;
+        /* color: #8bc4d1; errada */
+        color: #a8dbef;
+        /* color: #b4cfd6; errada - alterar  */
+        color: #a3d2e5;
+        color: #dff2f7;
+    }
+    
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    body {
+        font-family: 'Open Sans', serif;
+    }
+    
+    .subFormProposta {
+        font-size: 50px;
+        color: #002941;
+        background-color: green;
+    }
+    
+    .selectDisabled {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: pointer;
+    }
+    
+    .propostaBox {
+        background-color: #a3d2e5;
+        width: 96%;
+        margin-left: 2%;
+        border: 2px solid #002941;
+        border-top: none;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        color: #002941;
+    }
+    
+    .propostaSubBox {
+        background-color: #a3d2e5;
+        padding: 1%;
+        margin-top: -5%;
+        text-align: center;
+    }
+    
+    .serviceLine {
+        width: 90%;
+        margin-left: 5%;
+        margin-top: 6%;
+        background-color: #a8dbef;
+        padding: 5%;
+        border-radius: 10px;
+        color: #002941;
+    }
+    
+    .serviceSelect {
+        border: none;
+        border-radius: 10px;
+        width: 98%;
+        height: 30px;
+        color: #002941;
+        font-weight: bold;
+        background-color: white;
+    }
+    
+    .serviceSelect ::selection {
+        color: #002941;
+    }
+    
+    .recorrencia {
+        width: 100%;
+        padding-top: 20px;
+    }
+    
+    .materialRecorrenciaDescricao {
+        color: #002941;
+        font-weight: bold;
+        font-size: 16px;
+        padding-top: 5px;
+        padding-right: 15px;
+        width: 130px;
+    }
+    
+    .materialRecorrenciaOpcaoSim input {
+        display: none
+    }
+    
+    .materialRecorrenciaOpcaoNao input {
+        display: none
+    }
+    
+    .materialRecorrenciaOpcaoLabelSim {
+        color: #a3a3a3;
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 10px;
+        font-weight: bold;
+        background-color: #f4f4f4;
+        border: 4px solid white;
+        border-right: 1px solid white;
+        border-bottom-left-radius: 14px;
+        border-top-left-radius: 14px;
+    }
+    
+    .materialRecorrenciaOpcaoSim input:checked+label {
+        padding: 5px;
+        padding-left: 15px;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #002941;
+        background-color: #94cf1c;
+        border: 4px solid white;
+        border-right: 1px solid white;
+        border-bottom-left-radius: 14px;
+        border-top-left-radius: 14px;
+    }
+    
+    .materialRecorrenciaOpcaoLabelNao {
+        color: #a3a3a3;
+        padding: 5px;
+        padding-right: 15px;
+        padding-left: 10px;
+        font-weight: bold;
+        background-color: #f4f4f4;
+        border: 4px solid white;
+        border-left: 1px solid white;
+        border-bottom-right-radius: 14px;
+        border-top-right-radius: 14px;
+    }
+    
+    .materialRecorrenciaOpcaoNao input:checked+label {
+        padding: 5px;
+        padding-right: 15px;
+        padding-left: 10px;
+        font-weight: bold;
+        color: #002941;
+        background-color: #e85454;
+        border: 4px solid white;
+        border-left: 1px solid white;
+        border-bottom-right-radius: 14px;
+        border-top-right-radius: 14px;
+    }
+    
+    .descServBtnBox {
+        width: 100%;
+        padding: 10px;
+    }
+    
+    .descServBtn {
+        height: 40px;
+        border-radius: 8px;
+        border: 1px solid #002941;
+        color: #002941;
+        background: none;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+    
+    .descServBtn:hover {
+        background: #a6ce39;
+        cursor: pointer;
+        border-radius: 8px;
+    }
+    
+    .serviceValueBox {
+        width: 60%;
+        margin-left: 20%;
+    }
+    
+    .serviceValueLine {
+        padding: 5px;
+        height: 40px;
+        line-height: 20px;
+    }
+    
+    .serviceValue {
+        width: 70%;
+        height: 28px;
+        border-radius: 5px;
+        padding: 1%;
+        padding-left: 5px;
+    }
+    
+    .addServiceBtn {
+        font-size: 16px;
+        width: 45%;
+        margin-bottom: 10%;
+        height: 30px;
+        border-radius: 5px;
+        background-color: #2d8dc9;
+        border: none;
+        color: #002941;
+        font-weight: bold;
+    }
+    
+    .sameLine {
+        display: flex;
+    }
+    
+    .rs {
+        font-size: 16;
+        font-weight: bold;
+        padding: 2%;
+        margin-right: 10px;
+    }
+    
+    .moneyTxt {
+        font-weight: bold;
+        width: 50%;
+    }
+    
+    .valueBox {
+        width: 90%;
+        margin-left: 5%;
+        border-radius: 10px;
+        text-align: center;
+        background-color: #a8dbef;
+    }
+    
+    .titleValue {
+        background-color: #2d8dc9;
+        height: 60px;
+        padding: 12px;
+        font-weight: bold;
+        font-size: 30px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border: 2px solid #2d8dc9;
+        border-bottom: 2px solid #002941;
+    }
+    
+    .valueLine {
+        background-color: #a8dbef;
+        border: 2px solid #002941;
+        border-top: none;
+        padding: 5px;
+        height: 50px;
+        line-height: 30px;
+    }
+    
+    .valueFinalLine {
+        background-color: #2d8dc9;
+        border: 2px solid #002941;
+        border-top: none;
+        padding: 5px;
+        height: 60px;
+        font-size: 18px;
+        line-height: 40px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+    
+    .value {
+        width: 35%;
+        margin-top: 6px;
+        height: 70%;
+        border-radius: 5px;
+        padding: 2%;
+        font-size: 16px;
+    }
+    
+    .criarPropostaBtn {
+        font-size: 20px;
+        width: 80%;
+        margin-left: 10%;
+        height: 50px;
+        border-radius: 5px;
+        background-color: #94cf1c;
+        border: 2px solid #002941;
+        color: #002941;
+        font-weight: bold;
+    }
+    
+    .btnBox {
+        padding: 6%;
+    }
+    /* ######################################## End of page styling ######################################## */
+    /* ######################################## Beginning of modal stylization ######################################## */
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 80px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        color: #002941;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 90%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+    
+    .modal-header {
+        padding: 15px;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    
+    .modal-body {
+        padding: 2px 16px;
+    }
+    
+    .modal-footer {
+        padding: 2px 10px;
+        background-color: #5cb85c;
+        color: #002941;
+    }
+    /* .close {
+        color: #002941;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 5px;
+        width: 20%;
+        height: 30px;
+        border-radius: 10px;
+        border-color: #1286c8;
+        background: none;
+        margin-bottom: 10px;
+        margin-left: 15px;
+        margin-top: 6px;
+        margin-right: 15px;
+    }
+    
+    .close:hover,
+    .close:focus {
+        cursor: pointer;
+    } */
+    
+    .close {
+        font-size: 20px;
+        font-weight: bold;
+        padding: 5px;
+        width: 20%;
+        height: 50px;
+        border-radius: 10px;
+        border-color: #1286c8;
+        color: #002941;
+        background: none;
+        margin-bottom: 15px;
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-right: 15px;
+    }
+    
+    .close:hover,
+    .close:focus {
+        cursor: pointer;
+    }
+    
+    .descricaoTxt {
+        height: 150px;
+        width: 96%;
+        border-radius: 8px;
+        margin: 10px 10px 10px 10px;
+    }
+    
+    .txtArea {
+        /* text box stylization */
+        width: 98%;
+        background: white;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 16px;
+        height: 180px;
+    }
+    
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    /* ######################################## End of modal stylization ######################################## */
+</style>
+
+<script type="text/javascript">
+    var id = 1
+
+    function newLine() {
+        var ancor = document.getElementById('newLine');
+        var divBox = document.createElement('div');
+
+        // Bloco 1
+        var divSubBox = document.createElement('div');
+        var select = document.createElement('select');
+        var option1 = document.createElement('option');
+        var option2 = document.createElement('option');
+        var option3 = document.createElement('option');
+        var option4 = document.createElement('option');
+        var option5 = document.createElement('option');
+        var option6 = document.createElement('option');
+        var option7 = document.createElement('option');
+        var option8 = document.createElement('option');
+        var option9 = document.createElement('option');
+        var option10 = document.createElement('option');
+        var option11 = document.createElement('option');
+
+        // Bloco 2
+        var divSubBox2 = document.createElement('div');
+        var div1 = document.createElement('div');
+        var label1 = document.createElement('label');
+        var div2 = document.createElement('div');
+        var input1 = document.createElement('input');
+        var label2 = document.createElement('label');
+        var div3 = document.createElement('div');
+        var input2 = document.createElement('input');
+        var label3 = document.createElement('label');
+        var divSubBox3 = document.createElement('div');
+        var div4 = document.createElement('div');
+        var label4 = document.createElement('label');
+        var div5 = document.createElement('div');
+        var input3 = document.createElement('input');
+        var label5 = document.createElement('label');
+        var div6 = document.createElement('div');
+        var input4 = document.createElement('input');
+        var label6 = document.createElement('label');
+
+        // Bloco 3
+        var divSubBox4 = document.createElement('div');
+        var div7 = document.createElement('div');
+        var button1 = document.createElement('button');
+
+        // Bloco 4
+        var divSubBox5 = document.createElement('div');
+        var div8 = document.createElement('div');
+        var label7 = document.createElement('label');
+        var input5 = document.createElement('input');
+
+        // Bloco 5
+        var divSubBox6 = document.createElement('div');
+        var div9 = document.createElement('div');
+        var div10 = document.createElement('div');
+        var div11 = document.createElement('div');
+        var div12 = document.createElement('div');
+        var div13 = document.createElement('div');
+        var textArea = document.createElement('textarea')
+        var div14 = document.createElement('div');
+        var button2 = document.createElement('button');
+
+        // Block 1 - create select with 11 options
+        {
+            ancor.appendChild(divBox);
+            divBox.setAttribute('class', 'serviceLine');
+            divBox.setAttribute('id', 'linha' + id)
+                // divBox.setAttribute('style', 'margin-left: 0%');
+            divBox.appendChild(divSubBox);
+            divSubBox.setAttribute('class', 'inline divSize22');
+            divSubBox.appendChild(select);
+            select.setAttribute('class', 'serviceSelect');
+            select.setAttribute('name', 'serviceSelect' + id);
+            select.setAttribute('id', 'serviceSelect' + id);
+            // select option 1
+            option1.value = '';
+            option1.text = 'Selecione um serviço';
+            select.add(option1);
+            // select option 2
+            option2.value = 'Tratamento de Piscina';
+            option2.text = 'Tratamento de Piscina';
+            select.add(option2);
+            // select option 3
+            option3.value = 'Manutenção Elétrica';
+            option3.text = 'Manutenção Elétrica';
+            select.add(option3);
+            // select option 4
+            option4.value = 'Troca de Areia';
+            option4.text = 'Troca de Areia';
+            select.add(option4);
+            // select option 5
+            option5.value = 'Manutenção Hidraulica';
+            option5.text = 'Manutenção Hidraulica'
+            select.add(option5);
+            // select option 6
+            option6.value = 'Manutenção em Revestimento';
+            option6.text = 'Manutenção em Revestimento'
+            select.add(option6);
+            // select option 7
+            option7.value = 'Reforma Estrutural';
+            option7.text = 'Reforma Estrutural'
+            select.add(option7);
+            // select option 8
+            option8.value = 'Visita Tecnica';
+            option8.text = 'Visita Tecnica'
+            select.add(option8);
+            // select option 9
+            option9.value = 'Instalação Botoeira de Emergencia';
+            option9.text = 'Instalação Botoeira de Emergencia'
+            select.add(option9);
+            // select option 10
+            option10.value = 'Instalação Ralo de Fundo';
+            option10.text = 'Instalação Ralo de Fundo'
+            select.add(option10);
+            // select option 11
+            option11.value = 'Instalação Torre de Emergencia';
+            option11.text = 'Instalação Torre de Emergencia'
+            select.add(option11);
+        }
+
+        // Block 2 - create service recurrence and material inclusion option
+        {
+            // Recurrence option
+            divBox.appendChild(divSubBox2);
+            divSubBox2.setAttribute('class', 'inline recorrencia');
+            divSubBox2.appendChild(div1);
+            div1.setAttribute('class', 'inline optionRecurrence selectDisabled');
+            div1.appendChild(label1);
+            label1.setAttribute('id', 'recorrencia' + id)
+            label1.setAttribute('class', 'materialRecorrenciaDescricao selectDisabled')
+            label1.textContent = 'Serviço recorrente: ';
+            divSubBox2.appendChild(div2);
+
+            div2.setAttribute('class', 'inline materialRecorrenciaOpcaoSim');
+            div2.appendChild(input1);
+            input1.setAttribute('type', 'radio');
+            input1.setAttribute('name', 'recorrencia' + id);
+            input1.setAttribute('id', 'recorrenciaSim' + id);
+            input1.setAttribute('value', 'Sim');
+            div2.appendChild(label2);
+            label2.setAttribute('for', 'recorrenciaSim' + id);
+            label2.setAttribute('class', 'materialRecorrenciaOpcaoLabelSim selectDisabled');
+            label2.textContent = 'Sim';
+
+            divSubBox2.appendChild(div3);
+            div3.setAttribute('class', 'inline materialRecorrenciaOpcaoNao');
+            div3.appendChild(input2);
+            input2.setAttribute('type', 'radio');
+            input2.setAttribute('name', 'recorrencia' + id);
+            input2.setAttribute('id', 'recorrenciaNao' + id);
+            input2.setAttribute('value', 'Nao');
+            div3.appendChild(label3);
+            label3.setAttribute('for', 'recorrenciaNao' + id);
+            label3.setAttribute('class', 'materialRecorrenciaOpcaoLabelNao selectDisabled');
+            label3.textContent = 'Nao';
+
+
+            // Material inclusion option
+            divBox.appendChild(divSubBox3);
+            divSubBox3.setAttribute('class', 'inline recorrencia');
+            divSubBox3.appendChild(div4);
+            div4.setAttribute('class', 'inline optionRecurrence selectDisabled');
+            div4.appendChild(label4);
+            label4.setAttribute('id', 'material' + id)
+            label4.setAttribute('class', 'materialRecorrenciaDescricao');
+            label4.textContent = 'Material incluso: ';
+            divSubBox3.appendChild(div5);
+
+            div5.setAttribute('class', 'inline materialRecorrenciaOpcaoSim');
+            div5.appendChild(input3);
+            input3.setAttribute('type', 'radio');
+            input3.setAttribute('name', 'material' + id);
+            input3.setAttribute('id', 'materialSim' + id);
+            input3.setAttribute('value', 'Sim');
+            div5.appendChild(label5);
+            label5.setAttribute('for', 'materialSim' + id);
+            label5.setAttribute('class', 'materialRecorrenciaOpcaoLabelSim selectDisabled');
+            label5.textContent = 'Sim';
+
+
+            divSubBox3.appendChild(div6);
+            div6.setAttribute('class', 'inline marginL5 materialRecorrenciaOpcaoNao');
+            div6.appendChild(input4);
+            input4.setAttribute('type', 'radio');
+            input4.setAttribute('name', 'material' + id);
+            input4.setAttribute('id', 'materialNao' + id);
+            input4.setAttribute('value', 'Nao');
+            div6.appendChild(label6);
+            label6.setAttribute('for', 'materialNao' + id);
+            label6.setAttribute('class', 'materialRecorrenciaOpcaoLabelNao selectDisabled');
+            label6.textContent = 'Nao';
+        }
+
+        // Block 3 - creates a button that opens modal to describe service
+        {
+            divBox.appendChild(divSubBox4);
+            divSubBox4.setAttribute('class', 'inline marginL2 divSize12');
+            divSubBox4.appendChild(div7);
+            div7.setAttribute('class', 'descServBtnBox');
+            div7.appendChild(button1);
+            button1.setAttribute('class', 'descServBtn selectDisabled');
+            button1.setAttribute('type', 'button');
+            button1.setAttribute('onclick', 'descriptionModal(' + id + ')');
+            button1.textContent = 'Descrição do Serviço'
+
+        }
+
+        // Block 4 - create field for price
+        {
+            divBox.appendChild(divSubBox5);
+            divSubBox5.setAttribute('class', 'serviceValueBox inline')
+            divSubBox5.appendChild(div8);
+            div8.setAttribute('class', 'sameLine serviceValueLine');
+            div8.appendChild(label7);
+            label7.setAttribute('class', 'inline selectDisabled rs')
+            label7.textContent = 'R$'
+            div8.appendChild(input5);
+            input5.setAttribute('id', 'preco' + id);
+            input5.setAttribute('name', 'preco' + id);
+            input5.setAttribute('class', 'serviceValue inline marginL5');
+            input5.setAttribute('placeholder', '0,00');
+            input5.setAttribute('onkeydown', 'formataMoeda(this,10,event)');
+            input5.setAttribute('onkeypress', 'return maskKeyPress(event)');
+        }
+
+        // Block 5 - creates modal to describe the service to be performed
+        {
+            divBox.appendChild(divSubBox6);
+            divSubBox6.appendChild(div9);
+            div9.setAttribute('id', 'descriptionModal' + id);
+            div9.setAttribute('class', 'modal');
+            div9.setAttribute('style', 'display: none');
+            div9.appendChild(div10);
+            div10.setAttribute('class', 'modal-content');
+            div10.appendChild(div11);
+            div11.setAttribute('class', 'modal-header');
+            div11.appendChild(div12);
+            div12.textContent = 'Descreva o serviço:'
+            div10.appendChild(div13);
+            div13.setAttribute('class', 'modal-body')
+            div13.appendChild(textArea);
+            textArea.setAttribute('class', 'descricaoTxt pegarId');
+            textArea.setAttribute('type', 'text');
+            textArea.setAttribute('name', 'servicoDescricao' + id);
+            textArea.setAttribute('id', 'servicoDescricao' + id);
+            textArea.setAttribute('autofocus', '');
+
+            div10.appendChild(div14);
+            div14.setAttribute('style', 'text-align: right;')
+            div14.appendChild(button2);
+            button2.setAttribute('class', 'close')
+            button2.setAttribute('type', 'button')
+            button2.textContent = 'Salvar';
+        }
+        id = id + 1;
+
+        var numberOfServices = id - 1
+        var addedPrice;
+        document.getElementById('numberOfServices').value = numberOfServices;
+
+        // var finalValue = document.getElementById('finalValue');
+        // // NOTA: soma de todos os valores colocados, criar função separada
+        // finalValue.value = addedPrice
+    }
+
+    function totalValue(numberOfServices, addedPrice) {
+        var numberOfServices;
+        qtyServices = document.getElementById('numberOfServices').value;
+        qtyServices = parseInt(qtyServices);
+
+        var priceOfService = 0;
+        var addedPrice = 0;
+        var i = 1;
+
+        for (i = 1; i <= qtyServices; i++) {
+
+            priceOfService = document.getElementById('preco' + i).value;
+            priceOfService = parseFloat(priceOfService);
+            addedPrice = addedPrice + priceOfService;
+        }
+        console.log(addedPrice);
+        var finalValue = document.getElementById('finalValue');
+        // NOTA: soma de todos os valores colocados, criar função separada
+        finalValue.value = parseFloat(addedPrice)
+        console.log(finalValue);
+
+    }
+
+    // function valorTotal2(numberOfServices, id) {
+    //         var precoTotal;
+    //         var i;
+    //     for (i = 0; i <= numberOfServices; i++) {
+    //         var preco = document.getElementById('preco' +i).value;
+    //         precoTotal = preco + precoTotal;
+    //         console.log('preco1', preco);
+    //         console.log('precoTotal', precoTotal);
+    //     }
+    //     console.log('Chamou');
+
+    // console.log(precoTotal);
+
+    // var valorTratamentoPiscina = parseFloat(document.getElementById('tratamentoPiscinaPreco').value.replace(',', '.'));
+    // var valormanutencaoEletrica = parseFloat(document.getElementById('manutencaoEletricaPreco').value.replace(',', '.'));
+
+    // var valorTotal = valorTratamentoPiscina + valormanutencaoEletrica;
+    // trocaAreiaPreco.value + manutencaoHidraulicaPreco.value + reformaRevestimentoPreco.value + 
+    // reformaEstruturalPreco.value + instalacaoVinilPreco.value + visitaTecnicaPreco.value + botoeiraEmergenciaPreco.value + raloDeFundoPreco.value + torreEmergenciaPreco.value + outroServPreco.value;
+    // var finalValue = parseFloat(valorTotal)
+    // console.log('2', valorTotal);
+    // }
+
+    function descriptionModal(id) {
+        var modal = document.getElementById('descriptionModal' + id);
+        modal.style.display = 'block';
+
+        var i = id;
+        var closeDescriptionModal = document.getElementsByClassName('close')[i];
+
+        closeDescriptionModal.onclick = function() {
+            modal.style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    }
+
+    function BlockKeybord() {
+        if (window.event) {
+            if ((event.keyCode < 48) || (event.keyCode > 57)) {
+                event.returnValue = false;
+            }
+        } else if (e.which) {
+            if ((event.which < 48) || (event.which > 57)) {
+                event.returnValue = false;
+            }
+        }
+    }
+
+    function troca(str, strsai, strentra) {
+        while (str.indexOf(strsai) > -1) {
+            str = str.replace(strsai, strentra);
+        }
+        return str;
+    }
+
+    function formataMoeda(campo, tammax, teclapres, caracter) {
+        if (teclapres == null || teclapres == 'undefined') {
+            var tecla = -1;
+        } else {
+            var tecla = teclapres.keyCode;
+        }
+
+        if (caracter == null || caracter == 'undefined') {
+            caracter = '.';
+        }
+
+        vr = campo.value;
+        if (caracter != '') {
+            vr = troca(vr, caracter, '');
+        }
+        vr = troca(vr, '/', '');
+        vr = troca(vr, ',', '');
+        vr = troca(vr, '.', '');
+
+        tam = vr.length;
+        if (tecla > 0) {
+            if (tam < tammax && tecla != 8) {
+                tam = vr.length + 1;
+            }
+
+            if (tecla == 8) {
+                tam = tam - 1;
+            }
+        }
+        if (tecla == -1 || tecla == 8 || tecla >= 48 && tecla <= 57 || tecla >= 96 && tecla <= 105) {
+            if (tam <= 2) {
+                campo.value = vr;
+            }
+            if ((tam > 2) && (tam <= 5)) {
+                campo.value = vr.substr(0, tam - 2) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 6) && (tam <= 8)) {
+                campo.value = vr.substr(0, tam - 5) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 9) && (tam <= 11)) {
+                campo.value = vr.substr(0, tam - 8) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 12) && (tam <= 14)) {
+                campo.value = vr.substr(0, tam - 11) + caracter + vr.substr(tam - 11, 3) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 15) && (tam <= 17)) {
+                campo.value = vr.substr(0, tam - 14) + caracter + vr.substr(tam - 14, 3) + caracter + vr.substr(tam - 11, 3) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+        }
+    }
+
+    function maskKeyPress(objEvent) {
+        var iKeyCode;
+
+        if (window.event) {
+            iKeyCode = objEvent.keyCode;
+            if (iKeyCode >= 48 && iKeyCode <= 57) return true;
+            return false;
+        } else if (e.which) {
+            iKeyCode = objEvent.which;
+            if (iKeyCode >= 48 && iKeyCode <= 57) return true;
+            return false;
+        }
+    }
+</script>
+
+<body onload="newLine()">
+
+
+    <div class='subformProposta' onchange="totalValue()">
+        <!-- <div class="titleProposta">Elaboração de Proposta Comercial</div> -->
+        <div class="propostaBox">
+            <!-- <div class="subTitleProposta">Informe o valor e a descrição dos serviços a serem inseridos na proposta comercial.</div> -->
+            <!-- <br> -->
+            <form method="POST" action="cadastrando_conversao">
+                <input type="hidden" name="idLead" value="<?php echo $id;  ?>">
+                <input type="hidden" name="numberOfServices" id="numberOfServices">
+                <div class='box'>
+
+                    <div class="propostaSubBox" id="newLine"></div>
+
+                    <!-- Line to add new services to service proposal -->
+                    <div class="btnBox" style="text-align: right;">
+                        <button type="button" class="addServiceBtn" onclick="newLine()">Mais serviços</button>
+                    </div>
+                </div>
+                <div class="valueBox">
+                    <div class='titleValue'> Valores</div>
+                    <div class='sameLine valueLine '>
+                        <div class='moneyTxt'>Valor Total:</div>
+                        <div class='rs '>R$</div>
+                        <input name="total" id="total" class='value inline' placeholder="0,00" onkeydown="formataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+                    </div>
+                    <div class='sameLine valueLine'>
+                        <div class='moneyTxt'>Desconto:</div>
+                        <div class='rs '>R$</div>
+                        <input name="desconto" id="desconto" class='value inline' placeholder="0,00" onkeydown="formataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+                    </div>
+                    <div class='sameLine valueFinalLine'>
+                        <div class='moneyTxt'>Valor Final:</div>
+                        <div class='rs '>R$</div>
+                        <input name="finalValue" id="finalValue" class='value inline' placeholder="0,00" onkeydown="formataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+                    </div>
+                </div>
+                <div class="btnBox">
+                    <button class="criarPropostaBtn" type="submit">Criar Proposta</button>
+                </div>
+            </form>
+            <!-- <button onclick="totalValue()">Tornar Cliente</button> -->
+        </div>
+    </div>
+</body>

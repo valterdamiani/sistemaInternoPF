@@ -1,0 +1,1367 @@
+<style>
+    /* styling properties of the title */
+    
+    .title {
+        font-size: 45px;
+        text-align: center;
+    }
+    /* styling properties of subtitles or blocks */
+    
+    .subTitle {
+        font-size: 30px;
+        margin-left: 0.5%;
+        font-weight: bold;
+    }
+    /* menu styling properties or variable identifiers */
+    
+    .menu {
+        font-size: 20px;
+        margin-top: 5px;
+        margin-right: 0.2%;
+        margin-left: 1%;
+        color: #8fc44eab ;
+        color:rgba(1, 137, 203, 0.20);
+        color:rgba(141, 196, 79, 0.20)
+    }
+    /* styling properties of submenus, or variables loaded from server */
+    
+    .subMenu {
+        font-size: 20px;
+        color: darkblue;
+    }
+    /* class used for application to items that need to be on the same line */
+    
+    .inline {
+        display: inline-block;
+    }
+    /* text box stylization */
+    
+    .txtAreaTitle {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    
+    .txtArea {
+        width: 98%;
+        background: white;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: left;
+        margin-top: 10px;
+        font-size: 16px;
+        height: 200px;
+        /* margin-left: 1%; */
+    }
+    
+    .cards {
+        height: 300px;
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+    }
+    
+    .fileCard {
+        height: 280px;
+        width: 49.5%;
+        float: right;
+    }
+    
+    .fileBox {
+        width: 98%;
+        background: white;
+        border-radius: 5px;
+        padding: 5px;
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 1%;
+    }
+    
+    .fileLine {
+        padding: 10px;
+        border-bottom: 2px solid #e2e8dc;
+    }
+    
+    .detailBox {
+        height: 280px;
+        width: 49.5%;
+        float: left;
+    }
+    
+    .input {
+        margin-bottom: 25px;
+    }
+    
+    .recorrenciaOpcao {
+        width: 40px;
+        height: 20px;
+        padding: 0px;
+        color: gray;
+        text-align: center;
+        font-weight: bold;
+    }
+    
+    .recorrenciaOpcao input {
+        display: none
+    }
+    
+    .recorrenciaOpcao input:checked+label {
+        color: #1286c8;
+    }
+    
+    .rs {
+        margin-left: 3%;
+    }
+    
+    .valor {
+        width: 6%;
+    }
+    
+    .nomeServico {
+        width: 21%;
+        margin-top: 15px;
+    }
+    
+    .recorrencia {
+        width: 8.5%;
+    }
+    
+    .ocultarLista {
+        display: none
+    }
+    
+    .mostrarLista {
+        display: block;
+    }
+    /* media query used to adapt items to devices with different resolutions */
+    
+    @media screen and (max-width: 680px) {
+        /* when used on small sized devices, items should not be displayed on the same line */
+        .inline {
+            display: block;
+        }
+        /* When used on small sized devices, the text box should occupy 100% of the screen width. And the character size must be smaller */
+        .txtArea {
+            font-size: 14px;
+            width: 99%;
+            background: white;
+            border-radius: 5px;
+            margin-left: 1%;
+            margin-top: 10px;
+            padding: 3px;
+        }
+    }
+    
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+    
+    .modal-content {
+        position: relative;
+        background-color: #fefefe;
+        margin: auto;
+        padding: 0;
+        border: 1px solid #888;
+        width: 30%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        -webkit-animation-name: animatetop;
+        -webkit-animation-duration: 0.4s;
+        animation-name: animatetop;
+        animation-duration: 0.4s
+    }
+    
+    @-webkit-keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    
+    @keyframes animatetop {
+        from {
+            top: -300px;
+            opacity: 0
+        }
+        to {
+            top: 0;
+            opacity: 1
+        }
+    }
+    
+    .close {
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 20px;
+        padding: 0px;
+    }
+    
+    .close:hover,
+    .close:focus {
+        cursor: pointer;
+    }
+    
+    .modal-header {
+        background-color: #1268c8;
+    }
+    
+    .modal-body {
+        padding: 2px 16px;
+    }
+    
+    .modal-footer {
+        padding: 2px 16px;
+        background-color: #5cb85c;
+        color: white;
+    }
+    
+    .descricaoTxt {
+        height: 150px;
+        width: 97%;
+        border-radius: 6px;
+        margin: 10px 10px 10px 10px;
+    }
+    
+    .btnProposta {
+        text-align: right;
+        width: 30%;
+        background-color: red;
+    }
+</style>
+<script type="text/javascript">
+    var tratamentoPiscinaPreco = document.getElementById('tratamentoPiscinaPreco');
+    var manutencaoEletricaPreco = document.getElementById('manutencaoEletricaPreco');
+    var trocaAreiaPreco = document.getElementById('trocaAreiaPreco');
+    var manutencaoHidraulicaPreco = document.getElementById('manutencaoHidraulicaPreco');
+    var reformaRevestimentoPreco = document.getElementById('reformaRevestimentoPreco');
+    var reformaEstruturalPreco = document.getElementById('reformaEstruturalPreco');
+    var instalacaoVinilPreco = document.getElementById('instalacaoVinilPreco');
+    var visitaTecnicaPreco = document.getElementById('visitaTecnicaPreco');
+    var botoeiraEmergenciaPreco = document.getElementById('botoeiraEmergenciaPreco');
+    var raloDeFundoPreco = document.getElementById('raloDeFundoPreco');
+    var torreEmergenciaPreco = document.getElementById('torreEmergenciaPreco');
+    var outroServPreco = document.getElementById('outroServPreco');
+
+
+    function BlockKeybord() {
+        if (window.event) {
+            if ((event.keyCode < 48) || (event.keyCode > 57)) {
+                event.returnValue = false;
+            }
+        } else if (e.which) {
+            if ((event.which < 48) || (event.which > 57)) {
+                event.returnValue = false;
+            }
+        }
+    }
+
+    function troca(str, strsai, strentra) {
+        while (str.indexOf(strsai) > -1) {
+            str = str.replace(strsai, strentra);
+        }
+        return str;
+    }
+
+    function FormataMoeda(campo, tammax, teclapres, caracter) {
+        if (teclapres == null || teclapres == "undefined") {
+            var tecla = -1;
+        } else {
+            var tecla = teclapres.keyCode;
+        }
+
+        if (caracter == null || caracter == "undefined") {
+            caracter = ".";
+        }
+
+        vr = campo.value;
+        if (caracter != "") {
+            vr = troca(vr, caracter, "");
+        }
+        vr = troca(vr, "/", "");
+        vr = troca(vr, ",", "");
+        vr = troca(vr, ".", "");
+
+        tam = vr.length;
+        if (tecla > 0) {
+            if (tam < tammax && tecla != 8) {
+                tam = vr.length + 1;
+            }
+
+            if (tecla == 8) {
+                tam = tam - 1;
+            }
+        }
+        if (tecla == -1 || tecla == 8 || tecla >= 48 && tecla <= 57 || tecla >= 96 && tecla <= 105) {
+            if (tam <= 2) {
+                campo.value = vr;
+            }
+            if ((tam > 2) && (tam <= 5)) {
+                campo.value = vr.substr(0, tam - 2) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 6) && (tam <= 8)) {
+                campo.value = vr.substr(0, tam - 5) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 9) && (tam <= 11)) {
+                campo.value = vr.substr(0, tam - 8) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 12) && (tam <= 14)) {
+                campo.value = vr.substr(0, tam - 11) + caracter + vr.substr(tam - 11, 3) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+            if ((tam >= 15) && (tam <= 17)) {
+                campo.value = vr.substr(0, tam - 14) + caracter + vr.substr(tam - 14, 3) + caracter + vr.substr(tam - 11, 3) + caracter + vr.substr(tam - 8, 3) + caracter + vr.substr(tam - 5, 3) + ',' + vr.substr(tam - 2, tam);
+            }
+        }
+    }
+
+    function maskKeyPress(objEvent) {
+        var iKeyCode;
+
+        if (window.event) {
+            iKeyCode = objEvent.keyCode;
+            if (iKeyCode >= 48 && iKeyCode <= 57) return true;
+            return false;
+        } else if (e.which) {
+            iKeyCode = objEvent.which;
+            if (iKeyCode >= 48 && iKeyCode <= 57) return true;
+            return false;
+        }
+    }
+
+    function verValor(event) {
+
+        var tratamentoPiscinaPreco = document.getElementById('tratamentoPiscinaPreco').value;
+        var manutencaoEletricaPreco = document.getElementById('manutencaoEletricaPreco').value;
+        var trocaAreiaPreco = document.getElementById('trocaAreiaPreco').value;
+        var manutencaoHidraulicaPreco = document.getElementById('manutencaoHidraulicaPreco').value;
+        var reformaRevestimentoPreco = document.getElementById('reformaRevestimentoPreco').value;
+        var reformaEstruturalPreco = document.getElementById('reformaEstruturalPreco').value;
+        var instalacaoVinilPreco = document.getElementById('instalacaoVinilPreco').value;
+        var visitaTecnicaPreco = document.getElementById('visitaTecnicaPreco').value;
+        var botoeiraEmergenciaPreco = document.getElementById('botoeiraEmergenciaPreco').value;
+        var raloDeFundoPreco = document.getElementById('raloDeFundoPreco').value;
+        var torreEmergenciaPreco = document.getElementById('torreEmergenciaPreco').value;
+        var outroServPreco = document.getElementById('outroServPreco').value;
+
+        // var valorTratamentoPiscina = parseFloat(tratamentoPiscinaPreco.replace(',','.'));
+        // var valormanutencaoEletrica = parseFloat(manutencaoEletricaPreco.replace(',','.'));
+
+        // manutencaoEletricaPreco
+        // trocaAreiaPreco
+        // manutencaoHidraulicaPreco
+        // reformaRevestimentoPreco
+        // reformaEstruturalPreco
+        // instalacaoVinilPreco
+        // visitaTecnicaPreco
+        // botoeiraEmergenciaPreco
+        // raloDeFundoPreco
+        // torreEmergenciaPreco
+        // outroServPreco     
+
+        if (tratamentoPiscinaPreco != '') {
+            var recorrenciaTratamentoPiscina = document.querySelector('input[name="recorrenciaTratamentoPiscina"]:checked').value;
+            var produtosLimpeza = document.querySelector('input[name="produtosLimpeza"]:checked').value;
+            console.log('1', 'Tratamento de Piscina', tratamentoPiscinaPreco, recorrenciaTratamentoPiscina, produtosLimpeza);
+        }
+        if (manutencaoEletricaPreco != '') {
+            var recorrenciaManutencaoEletrica = document.querySelector('input[name="recorrenciaManutencaoEletrica"]:checked').value;
+            var materialManutencaoEletrica = document.querySelector('input[name="materialManutencaoEletrica"]:checked').value;
+            console.log('2', 'Manutenção Elétrica', manutencaoEletricaPreco, recorrenciaManutencaoEletrica, materialManutencaoEletrica);
+        }
+        if (trocaAreiaPreco != '') {
+            var recorrenciaTrocaAreia = document.querySelector('input[name="recorrenciaTrocaAreia"]:checked').value;
+            var materialTrocaAreia = document.querySelector('input[name="materialTrocaAreia"]:checked').value;
+            console.log('3', 'Troca de Areia', trocaAreiaPreco, recorrenciaTrocaAreia, materialTrocaAreia);
+        }
+        if (manutencaoHidraulicaPreco != '') {
+            var recorrenciaManutencaoHidraulica = document.querySelector('input[name="recorrenciaManutencaoHidraulica"]:checked').value;
+            var materialManutencaoHidraulica = document.querySelector('input[name="materialManutencaoHidraulica"]:checked').value;
+            console.log('4', 'Manutenção Hidraulica', manutencaoHidraulicaPreco, recorrenciaManutencaoHidraulica, materialManutencaoHidraulica);
+
+        }
+        if (reformaRevestimentoPreco != '') {
+            var recorrenciaReformaRevestimento = document.querySelector('input[name="recorrenciaReformaRevestimento"]:checked').value;
+            var materialReformaRevestimento = document.querySelector('input[name="materialReformaRevestimento"]:checked').value;
+            console.log('5', 'Reforma Revestimento', reformaRevestimentoPreco, recorrenciaReformaRevestimento, materialReformaRevestimento);
+
+        }
+        if (reformaEstruturalPreco != '') {
+            var recorrenciaReformaEstrutural = document.querySelector('input[name="recorrenciaReformaEstrutural"]:checked').value;
+            var materialReformaEstrutural = document.querySelector('input[name="materialReformaEstrutural"]:checked').value;
+            console.log('6', 'Reforma Estrutural', reformaEstruturalPreco, recorrenciaReformaEstrutural, materialReformaEstrutural);
+
+        }
+        if (instalacaoVinilPreco != '') {
+            var recorrenciaInstalacaoVinil = document.querySelector('input[name="recorrenciaInstalacaoVinil"]:checked').value;
+            var materialInstalacaoVinil = document.querySelector('input[name="materialInstalacaoVinil"]:checked').value;
+            console.log('7', 'Instalação Vinil', instalacaoVinilPreco, recorrenciaInstalacaoVinil, materialInstalacaoVinil);
+
+        }
+        if (visitaTecnicaPreco != '') {
+            var recorrenciaVisitaTecnica = document.querySelector('input[name="recorrenciaVisitaTecnica"]:checked').value;
+            console.log('8', 'Visita Técnica', recorrenciaVisitaTecnica, recorrenciaVisitaTecnica);
+
+        }
+        if (botoeiraEmergenciaPreco != '') {
+            var recorrenciaBotoeiraEmergencia = document.querySelector('input[name="recorrenciaBotoeiraEmergencia"]:checked').value;
+            var materialBotoeiraEmergencia = document.querySelector('input[name="materialBotoeiraEmergencia"]:checked').value;
+            console.log('9', 'Instalação Botoeira', botoeiraEmergenciaPreco, recorrenciaBotoeiraEmergencia, materialBotoeiraEmergencia);
+
+        }
+        if (raloDeFundoPreco != '') {
+            var recorrenciaRaloDeFundo = document.querySelector('input[name="recorrenciaRaloDeFundo"]:checked').value;
+            var materialRaloDeFundo = document.querySelector('input[name="materialRaloDeFundo"]:checked').value;
+            console.log('10', 'Instalação Ralo de Fundo', raloDeFundoPreco, recorrenciaRaloDeFundo, materialRaloDeFundo);
+
+        }
+        if (torreEmergenciaPreco != '') {
+            var recorrenciaTorreEmergencia = document.querySelector('input[name="recorrenciaTorreEmergencia"]:checked').value;
+            var materialTorreEmergencia = document.querySelector('input[name="materialTorreEmergencia"]:checked').value;
+            console.log('11', 'Instalação Torre de Emergencia', torreEmergenciaPreco, recorrenciaTorreEmergencia, materialTorreEmergencia);
+
+        }
+        if (outroServPreco != '') {
+            var recorrenciaOutroServ = document.querySelector('input[name="recorrenciaOutroServ"]:checked').value;
+            var materialOutroServ = document.querySelector('input[name="materialOutroServ"]:checked').value;
+            console.log('12', 'Outro Serviço', outroServPreco, recorrenciaOutroServ, materialOutroServ);
+
+        } else {
+
+        };
+    }
+
+    function valorTotal() {
+
+        var valorTratamentoPiscina = parseFloat(document.getElementById('tratamentoPiscinaPreco').value.replace(',', '.'));
+        var valormanutencaoEletrica = parseFloat(document.getElementById('manutencaoEletricaPreco').value.replace(',', '.'));
+
+        // var valorTratamentoPiscina = parseFloat(tratamentoPiscinaPreco.replace(',','.'));
+        // var valormanutencaoEletrica = parseFloat(manutencaoEletricaPreco.replace(',','.'));
+        // valorTratamentoPiscina = parseFloat(valorTratamentoPiscina);
+        // valormanutencaoEletrica = parseFloat(valormanutencaoEletrica);        
+
+
+        var valorTotal = valorTratamentoPiscina + valormanutencaoEletrica;
+        // trocaAreiaPreco.value + manutencaoHidraulicaPreco.value + reformaRevestimentoPreco.value + 
+        // reformaEstruturalPreco.value + instalacaoVinilPreco.value + visitaTecnicaPreco.value + botoeiraEmergenciaPreco.value + raloDeFundoPreco.value + torreEmergenciaPreco.value + outroServPreco.value;
+        // var valorFinal = parseFloat(valorTotal)
+        console.log('2', valorTotal);
+
+    }
+
+
+
+    function mostrarMaisItens() {
+        var mostraMais = document.getElementById('maisItens');
+        var mostrarMaisBtn = document.getElementById('mostrarMaisItens');
+        var mostrarMenosBtn = document.getElementById('mostrarMenosItens');
+
+        mostraMais.classList.remove('ocultarLista');
+        mostraMais.classList.add('mostrarLista');
+
+        mostrarMaisBtn.classList.remove('mostrarLista');
+        mostrarMaisBtn.classList.add('ocultarLista');
+
+        mostrarMenosBtn.classList.remove('ocultarLista');
+        mostrarMenosBtn.classList.add('mostrarLista');
+    }
+
+    function mostrarMenosItens() {
+        var mostraMenos = document.getElementById('maisItens');
+        var mostrarMaisBtn = document.getElementById('mostrarMaisItens');
+        var mostrarMenosBtn = document.getElementById('mostrarMenosItens');
+
+        mostraMenos.classList.remove('mostrarLista');
+        mostraMenos.classList.add('ocultarLista');
+
+        mostrarMenosBtn.classList.remove('mostrarLista');
+        mostrarMenosBtn.classList.add('ocultarLista');
+
+        mostrarMaisBtn.classList.remove('ocultarLista');
+        mostrarMaisBtn.classList.add('mostrarLista');
+    }
+
+    function descricaoModal() {
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName('close')[0];
+        var itemIdByClasse = document.querySelector('.pegarId').id;
+        var itemId = document.getElementById(itemIdByClasse)
+
+        modal.style.display = "block";
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script>
+
+<div class='demanda' style="width: 98%; background-color: #c8e4f2;" onchange="valorTotal()">
+    <h3 class="title">Elaboração de Proposta Comercial</h3>
+    <br>
+    <br>
+    <div class="inline" style="width: 98%;">
+        <br>
+        <div class="subTitle">Informe o valor e a descrição dos serviços a serem inseridos na proposta comercial.</div>
+        <br>
+        <br>
+        <!-- Bloco 1 - tratamento de piscina -->
+        <div class="form-group">
+            <div class="inline nomeServico">
+                <label class='menu' for='tratamentoPiscina'>Tratamento de Piscina</label>
+            </div>
+            <div class=" inline recorrencia">
+                <label>Serviço recorrente:</label>
+            </div>
+            <div class="inline recorrenciaOpcao">
+                <input type='radio' name="recorrenciaTratamentoPiscina" id='recorrenciaTratamentoPiscinaSim' value='recorrenciaTratamentoPiscinaSim' checked>
+                <label for='recorrenciaTratamentoPiscinaSim'>Sim</label>
+            </div>
+            <div class="inline recorrenciaOpcao">
+                <input type='radio' name="recorrenciaTratamentoPiscina" id='recorrenciaTratamentoPiscinaNao' value='recorrenciaTratamentoPiscinaNao'>
+                <label for='recorrenciaTratamentoPiscinaNao'>Não</label>
+            </div>
+            <div class=" inline recorrencia" style="margin-left: 3%;">
+                <label>Produtos Inclusos:</label>
+            </div>
+            <div class="inline recorrenciaOpcao">
+                <input type='radio' name="produtosLimpeza" id='produtosLimpezaSim' value='produtosLimpezaSim' checked>
+                <label for='produtosLimpezaSim'>Sim</label>
+            </div>
+            <div class="inline recorrenciaOpcao">
+                <input type='radio' name="produtosLimpeza" id='produtosLimpezaNao' value='produtosLimpezaNao'>
+                <label for='produtosLimpezaNao'>Não</label>
+            </div>
+            <div class="inline" style="margin-left: 3%; width: 5%;">
+                <button id="btnDescricaoTratamentoPiscina" class='btn btn-outline-primary btn-sm btn-block' onclick="modalLimpeza()">Descrição</button>
+            </div>
+            <div class="menu inline rs">R$</div>
+            <input id='tratamentoPiscinaPreco' class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+            <div id="modalLimpeza" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Descreva o serviço:</h2>
+                        <button class="close">Salvar</button>
+                    </div>
+                    <div class="modal-body">
+                        <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="descricaoTratamentoPiscina"></textarea>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function modalLimpeza() {
+                    var modal = document.getElementById("modalLimpeza");
+                    var closeDescricaoLimpeza = document.getElementsByClassName('close')[0];
+                    modal.style.display = "block";
+                    closeDescricaoLimpeza.onclick = function() {
+                        modal.style.display = "none";
+                    }
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+                }
+            </script>
+        </div>
+
+        <div id="maisItens" class="ocultarLista">
+            <!-- Bloco 2 - Manutenção Elétrica -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='manutencaoEletrica'>Manutenção Elétrica</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaManutencaoEletrica" id='recorrenciaManutencaoSim' value='recorrenciaManutencaoSim'>
+                    <label for='recorrenciaManutencaoSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaManutencaoEletrica" id='recorrenciaManutencaoNao' value='recorrenciaManutencaoNao' checked>
+                    <label for='recorrenciaManutencaoNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialManutencaoEletrica" id='materialManutencaoEletricaSim' value='materialManutencaoEletricaSim' checked>
+                    <label for='materialManutencaoEletricaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialManutencaoEletrica" id='materialManutencaoEletricaNao' value='materialManutencaoEletricaNao'>
+                    <label for='materialManutencaoEletricaNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalManutencaoEletrica()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="manutencaoEletricaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+                <div id="modalManutencaoEletrica" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="descricaoManutencaoEletrica"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalManutencaoEletrica() {
+                        var modal = document.getElementById("modalManutencaoEletrica");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[1];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 3 - Troca de Areia -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='trocaAreia'>Troca de Areia</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaTrocaAreia" id='recorrenciaTrocaAreiaSim' value='recorrenciaTrocaAreiaSim'>
+                    <label for='recorrenciaTrocaAreiaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaTrocaAreia" id='recorrenciaTrocaAreiaNao' value='recorrenciaTrocaAreiaNao' checked>
+                    <label for='recorrenciaTrocaAreiaNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialTrocaAreia" id='materialTrocaAreiaSim' value='materialTrocaAreiaSim' checked>
+                    <label for='materialTrocaAreiaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialTrocaAreia" id='materialTrocaAreiaNao' value='materialTrocaAreiaNao'>
+                    <label for='materialTrocaAreiaNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalTrocaAreia()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="trocaAreiaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+                <div id="modalTrocaAreia" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="trocaAreiaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalTrocaAreia() {
+                        var modal = document.getElementById("modalTrocaAreia");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[2];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 4 - Manutenção Hidraulica -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='manutencaoHidraulica'>Manutenção Hidraulica</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaManutencaoHidraulica" id='recorrenciaManutencaoHidraulicaSim' value='recorrenciaManutencaoHidraulicaSim'>
+                    <label for='recorrenciaManutencaoHidraulicaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaManutencaoHidraulica" id='recorrenciaManutencaoHidraulicaNao' value='recorrenciaManutencaoHidraulicaNao' checked>
+                    <label for='recorrenciaManutencaoHidraulicaNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialManutencaoHidraulica" id='materialManutencaoHidraulicaSim' value='materialManutencaoHidraulicaSim' checked>
+                    <label for='materialManutencaoHidraulicaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialManutencaoHidraulica" id='materialManutencaoHidraulicaNao' value='materialManutencaoHidraulicaNao'>
+                    <label for='materialManutencaoHidraulicaNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalManutencaoHidraulica()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="manutencaoHidraulicaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalManutencaoHidraulica" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalManutencaoHidraulica() {
+                        var modal = document.getElementById("modalManutencaoHidraulica");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[3];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 5 - Manutenção de revestimento -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='reformaRevestimento'>Manutenção em Revestimento</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaReformaRevestimento" id='recorrenciaManutencaoRevestimentoSim' value='recorrenciaManutencaoRevestimentoSim'>
+                    <label for='recorrenciaManutencaoRevestimentoSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaReformaRevestimento" id='recorrenciaManutencaoRevestimentoNao' value='recorrenciaManutencaoRevestimentoNao' checked>
+                    <label for='recorrenciaManutencaoRevestimentoNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialReformaRevestimento" id='materialManutencaoRevestimentoSim' value='materialManutencaoRevestimentoSim' checked>
+                    <label for='materialManutencaoRevestimentoSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialReformaRevestimento" id='materialManutencaoRevestimentoNao' value='materialManutencaoRevestimentoNao'>
+                    <label for='materialManutencaoRevestimentoNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalReformaRevestimento()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="reformaRevestimentoPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalReformaRevestimento" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalReformaRevestimento() {
+                        var modal = document.getElementById("modalReformaRevestimento");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[4];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 6 - Reforma Estrutural -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='reformaEstrutural'>Reforma Estrutural</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaReformaEstrutural" id='recorrenciaReformaEstruturalSim' value='recorrenciaReformaEstruturalSim'>
+                    <label for='recorrenciaReformaEstruturalSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaReformaEstrutural" id='recorrenciaReformaEstruturalNao' value='recorrenciaReformaEstruturalNao' checked>
+                    <label for='recorrenciaReformaEstruturalNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialReformaEstrutural" id='produtosReformaEstruturalSim' value='produtosReformaEstruturalSim' checked>
+                    <label for='produtosReformaEstruturalSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialReformaEstrutural" id='produtosReformaEstruturalNao' value='produtosReformaEstruturalNao'>
+                    <label for='produtosReformaEstruturalNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalReformaEstrutural()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="reformaEstruturalPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalReformaEstrutural" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalReformaEstrutural() {
+                        var modal = document.getElementById("modalReformaEstrutural");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[5];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 7 - Instalação de Vinil -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='instalacaoVinil'>Instalação de Vinil</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaInstalacaoVinil" id='recorrenciaInstalacaoVinilSim' value='recorrenciaInstalacaoVinilSim'>
+                    <label for='recorrenciaInstalacaoVinilSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaInstalacaoVinil" id='recorrenciaInstalacaoVinilNao' value='recorrenciaInstalacaoVinilNao' checked>
+                    <label for='recorrenciaInstalacaoVinilNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialInstalacaoVinil" id='materialInstalacaoVinilSim' value='materialInstalacaoVinilSim' checked>
+                    <label for='materialInstalacaoVinilSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialInstalacaoVinil" id='materialInstalacaoVinilNao' value='materialInstalacaoVinilNao'>
+                    <label for='materialInstalacaoVinilNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalInstalacaoVinil()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="instalacaoVinilPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalInstalacaoVinil" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalInstalacaoVinil() {
+                        var modal = document.getElementById("modalInstalacaoVinil");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[6];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 8 - Visita Técnica -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='visitaTecnica'>Visita Tecnica</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaVisitaTecnica" id='recorrenciaVisitaTecnicaSim' value='recorrenciaVisitaTecnicaSim'>
+                    <label for='recorrenciaVisitaTecnicaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaVisitaTecnica" id='recorrenciaVisitaTecnicaNao' value='recorrenciaVisitaTecnicaNao' checked>
+                    <label for='recorrenciaVisitaTecnicaNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label></label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialVisitaTecnica" id='materialVisitaTecnicaSim' value='materialVisitaTecnicaSim'>
+                    <label for='materialVisitaTecnicaSim'></label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialVisitaTecnica" id='materialVisitaTecnicaNao' value='materialVisitaTecnicaNao'>
+                    <label for='materialVisitaTecnicaNao'></label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalVisitaTecnica()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="visitaTecnicaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalVisitaTecnica" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalVisitaTecnica() {
+                        var modal = document.getElementById("modalVisitaTecnica");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[7];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 9 - Instalação de Botoeira -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='botoeiraEmergencia'>Instalação Botoeira de Emergencia</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaBotoeiraEmergencia" id='recorrenciaBotoeiraEmergenciaSim' value='recorrenciaBotoeiraEmergenciaSim'>
+                    <label for='recorrenciaBotoeiraEmergenciaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaBotoeiraEmergencia" id='recorrenciaBotoeiraEmergenciaNao' value='recorrenciaBotoeiraEmergenciaNao' checked>
+                    <label for='recorrenciaBotoeiraEmergenciaNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialBotoeiraEmergencia" id='materialBotoeiraEmergenciaSim' value='materialBotoeiraEmergenciaSim' checked>
+                    <label for='materialBotoeiraEmergenciaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialBotoeiraEmergencia" id='materialBotoeiraEmergenciaNao' value='materialBotoeiraEmergenciaNao'>
+                    <label for='materialBotoeiraEmergenciaNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalBotoeiraEmergencia()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="botoeiraEmergenciaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalBotoeiraEmergencia" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalBotoeiraEmergencia() {
+                        var modal = document.getElementById("modalBotoeiraEmergencia");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[8];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 10 - Instalação de ralo de fundo -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='raloDeFundo'>Instalação Ralo de Fundo</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaRaloDeFundo" id='recorrenciaRaloDeFundoSim' value='recorrenciaRaloDeFundoSim'>
+                    <label for='recorrenciaRaloDeFundoSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaRaloDeFundo" id='recorrenciaRaloDeFundoNao' value='recorrenciaRaloDeFundoNao' checked>
+                    <label for='recorrenciaRaloDeFundoNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialRaloDeFundo" id='materialRaloDeFundoSim' value='materialRaloDeFundoSim' checked>
+                    <label for='materialRaloDeFundoSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialRaloDeFundo" id='materialRaloDeFundoNao' value='materialRaloDeFundoNao'>
+                    <label for='materialRaloDeFundoNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalRaloDeFundo()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="raloDeFundoPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalRaloDeFundo" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalRaloDeFundo() {
+                        var modal = document.getElementById("modalRaloDeFundo");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[9];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 11 - Instalação de Torre de Emergencia -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <label class='menu' for='torreEmergencia'>Instalação Torre de Emergencia</label>
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaTorreEmergencia" id='recorrenciaTorreEmergenciaSim' value='recorrenciaTorreEmergenciaSim'>
+                    <label for='recorrenciaTorreEmergenciaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaTorreEmergencia" id='recorrenciaNao' value='recorrenciaNao' checked>
+                    <label for='recorrenciaNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialTorreEmergencia" id='materialTorreEmergenciaSim' value='materialTorreEmergenciaSim' checked>
+                    <label for='materialTorreEmergenciaSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialTorreEmergencia" id='materialTorreEmergenciaNao' value='materialTorreEmergenciaNao'>
+                    <label for='materialTorreEmergenciaNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalTorreEmergencia()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="torreEmergenciaPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalTorreEmergencia" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalTorreEmergencia() {
+                        var modal = document.getElementById("modalTorreEmergencia");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[10];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+
+            <!-- Bloco 12 - Outro serviço -->
+            <div class="form-group">
+                <div class="inline nomeServico">
+                    <input style="width: 90%;" class="form-control" placeholder="Outro serviço caso não conste acima.">
+                </div>
+                <div class=" inline recorrencia">
+                    <label>Serviço recorrente:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaOutroServ" id='recorrenciaOutroServSim' value='recorrenciaOutroServSim'>
+                    <label for='recorrenciaOutroServSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="recorrenciaOutroServ" id='recorrenciaOutroServNao' value='recorrenciaOutroServNao' checked>
+                    <label for='recorrenciaOutroServNao'>Não</label>
+                </div>
+                <div class=" inline recorrencia" style="margin-left: 3%;">
+                    <label>Material Incluso:</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialOutroServ" id='materialOutroServSim' value='materialOutroServSim' checked>
+                    <label for='materialOutroServSim'>Sim</label>
+                </div>
+                <div class="inline recorrenciaOpcao">
+                    <input type='radio' name="materialOutroServ" id='materialOutroServNao' value='materialOutroServNao'>
+                    <label for='materialOutroServNao'>Não</label>
+                </div>
+                <div class="inline" style="margin-left: 3%; width: 5%;">
+                    <button class='btn btn-outline-primary btn-sm btn-block' onclick="modalOutroServ()">Descrição</button>
+                </div>
+                <div class="menu inline rs">R$</div>
+                <input id="outroServPreco" class="form-control inline valor" placeholder="0,00" onkeydown="FormataMoeda(this,10,event)" onkeypress="return maskKeyPress(event)">
+
+                <div id="modalOutroServ" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Descreva o serviço:</h2>
+                            <button class="close">Salvar</button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea class='descricaoTxt pegarId' type="text" name="descricao" id="manutencaoHidraulicaDescricao"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <script>
+                    function modalOutroServ() {
+                        var modal = document.getElementById("modalOutroServ");
+                        var closeDescricaoLimpeza = document.getElementsByClassName('close')[11];
+                        modal.style.display = "block";
+                        closeDescricaoLimpeza.onclick = function() {
+                            modal.style.display = "none";
+                        }
+                        window.onclick = function(event) {
+                            if (event.target == modal) {
+                                modal.style.display = "none";
+                            }
+                        }
+                    }
+                </script>
+            </div>
+
+        </div>
+        <!-- </div> -->
+        <br>
+        <button id='mostrarMaisItens' class="btn btn-outline-success btn-sm btn-block mostrarLista" style="width: 8%;" onclick="mostrarMaisItens()">Mais Serviços</button>
+        <button id='mostrarMenosItens' class="btn btn-outline-success btn-sm btn-block ocultarLista" style="width: 8%;" onclick="mostrarMenosItens()">Ocultar Serviços</button>
+        <br>
+    </div>
+    <br>
+    <div>
+        <div class="subTitle">Valores</div>
+        <br>
+        <div class="input">
+            <div class="menu inline" style="width: 6%;">Valor Total:</div>
+            <div class="menu inline">R$</div>
+            <input class="form-control inline" style="width: 8%;">
+        </div>
+        <div class="input">
+            <div class="menu inline" style="width: 6%;">Desconto:</div>
+            <div class="menu inline">R$</div>
+            <input class="form-control inline" style="width: 8%;">
+        </div>
+        <div class="input">
+            <div class="menu inline" style="width: 6%;">Valor Final:</div>
+            <div class="menu inline">R$</div>
+            <input class="form-control inline" style="width: 8%;">
+        </div>
+    </div>
+    <div class='btnProposta'>
+        <button>Ver proposta</button>
+        <button>Enviar proposta via email</button>
+    </div>
+    <div>
+        <button onclick="verValor()">Tornar Cliente</button>
+    </div>
+</div>
+
+
+
+
+
+<!-- Linha 3 -->
+<div id="cardLine3" class="inline">
+    <div id="card" class="card">
+        <div id="cardTitle" class="cardTitle">
+        Titulo
+        </div>
+        <div id="cardTxt" class="cardTxt">
+        teste 1
+        </div>
+    </div>
+    <div id="card" class="card">
+        <div id="cardTitle" class="cardTitle">
+        Titulo
+        </div>
+        <div id="cardTxt" class="cardTxt">
+        teste 2
+        </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 3
+    </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 4
+    </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 5
+    </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 6
+    </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 7
+    </div>
+    </div>
+    <div id="card" class="card">
+    <div id="cardTitle" class="cardTitle">
+    Titulo
+    </div>
+    <div id="cardTxt" class="cardTxt">
+    teste 8
+    </div>
+</div>
