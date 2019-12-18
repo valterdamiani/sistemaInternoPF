@@ -1,0 +1,414 @@
+<?php header("Cache-Control: no-cache, must-revalidate"); 
+
+    include 'connections.php';
+    include 'session.php';
+    
+    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <title>Calculadora Índice de Saturação (Langelier - LSI)</title>
+    <?php require_once "head.php"; ?>
+    <meta charset="utf-8">
+    <!-- <link rel="stylesheet" href="./calculadora.css"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <style type="text/css">
+        .show {
+            display: block;
+        }
+        
+        #calculadora {
+            font-family: "Open Sans";
+            display: block;
+            margin: 0 auto;
+            width: 50%;
+            border-radius: 8px;
+            background: #002843;
+            width: 300px;
+            padding: 18px;
+            box-sizing: content-box;
+        }
+        
+        #h1_new {
+            font-family: "Open Sans";
+            font-size: 14pt;
+            text-align: center;
+            margin-top: 0px;
+            color: #FFF;
+            width: 100%;
+        }
+        
+        .conteudo {
+            margin: 0 auto;
+            width: 80%;
+            background: #2c88c5;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        
+        .conteudo2 {
+            margin: 0 auto;
+            width: 90%;
+            background: #FFF;
+            margin-top: 16px;
+            border-radius: 8px;
+            padding: 16px;
+            height: 40px;
+            font-weight: bold;
+        }
+        
+        #paragrafo_resposta {
+            font-size: 14pt;
+        }
+        
+        .paragrafo_resposta {
+            margin: 0 0;
+            line-height: 1;
+            font-size: 12pt;
+        }
+        
+        .paragrafo_respostaTxt {
+            margin: 0 0;
+            line-height: 1;
+            font-size: 14pt;
+            text-transform: uppercase;
+        }
+        
+        #paragrafo_indice_de_saturacao {
+            font-size: 12pt;
+            display: inline;
+        }
+        
+        .label_todos {
+            position: relative;
+            top: 4px;
+            color: #FFF;
+            line-height: 1.8;
+            margin-left: 4px;
+        }
+        
+        .input_todos {
+            outline: none;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            height: 15px;
+            padding: 6px;
+            background: #FFF;
+            color: #00192a;
+            font-size: 12pt;
+            font-family: "Open Sans";
+            box-sizing: content-box;
+        }
+        
+        #input_temperatura {
+            height: 20px;
+            padding-top: 2px;
+            width: 100%;
+        }
+        
+        .cor-verde {
+            color: green;
+        }
+        
+        .cor-violeta {
+            color: violet;
+        }
+        
+        .cor-vermelha {
+            color: red;
+        }
+        /* Alerta Erro
+----------------------------------------------- */
+        /* Geral */
+        
+        .alerta {
+            padding: 25px;
+            border: 1px solid gray;
+            border-radius: 3px;
+            margin: 10px;
+            font-size: 18px;
+            font-family: "Open Sans";
+        }
+        
+        .error {
+            border-color: #e8273b;
+            color: #FFF;
+            background-color: #ed5565;
+            font-family: "Open Sans";
+        }
+        
+        .sucesso {
+            border-color: #87c940;
+            color: #FFF;
+            background-color: #a0d468;
+            font-family: "Open Sans";
+        }
+        
+        .atencao {
+            border-color: #f4a911;
+            color: #FFF;
+            background-color: #f6bb42;
+            font-family: "Open Sans";
+        }
+        
+        .info {
+            border-color: #2f80e7;
+            color: #FFF;
+            background-color: #5d9cec;
+            font-family: "Open Sans";
+        }
+        /* Fim Alerta Erro ----------------------------------------------- */
+        
+        .error_input {
+            font-size: 8pt;
+            color: red;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .show {
+            display: block;
+        }
+        
+        .fonte-pequena {
+            font-size: 9pt;
+            line-height: 1.2;
+        }
+        
+        .fonte-14 {
+            font-size: 14pt;
+        }
+        
+        .background-red {
+            background: rgba(226, 17, 0, 0.8);
+        }
+        
+        @media only screen and (max-width: 600px) {
+            body {
+                margin: 0;
+                padding: 0;
+                border: 0;
+                font-size: 100%;
+                font: inherit;
+                vertical-align: baseline;
+            }
+            #calculadora {
+                width: 100%;
+                padding: 18px 0px;
+                vertical-align: baseline;
+                box-sizing: content-box;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <?php require_once "navbar.php"; ?>
+    <div id="erro_calculadora_lan" class="erro_calculadora_lan"></div>
+    <div id="calculadora" class="calculadora">
+        <h1 id="h1_new" class="h1_new">CALCULADORA DO ÍNDICE DE SATURAÇÃO (LANGELIER - LSI)</h1>
+        <div id="conteudo" class="conteudo">
+            <label id="label_ph" class="label_todos">pH:</label> <br>
+            <input id="input_ph" type="number" step="1" min="0" class="input_todos" onchange="calcular()" value="7.5" onkeypress="if (document.getElementById('input_ph').value < 0) {document.getElementById('input_ph').value = document.getElementById('input_ph').value * -1;}">
+            <br>
+            <span id="error_pH" class="error_input"></span>
+            <label id="label_AT" class="label_todos">Alcalinidade Total (ppm):</label> <br>
+            <input id="input_AT" type="number" step="1" min="0" class="input_todos" onchange="calcular()" value="100" onkeypress="if (document.getElementById('input_AT').value < 0) {document.getElementById('input_AT').value = document.getElementById('input_AT').value * -1;}">            <br>
+            <span id="error_AT" class="error_input"></span>
+            <label id="label_AC" class="label_todos">Ácido Cianúrico (ppm):</label> <br>
+            <input id="input_AC" type="number" step="1" min="0" class="input_todos" onchange="calcular()" value="40" onkeypress="if (document.getElementById('input_AC').value < 0) {document.getElementById('input_AC').value = document.getElementById('input_AC').value * -1;}">            <br>
+            <span id="error_AC" class="error_input"></span>
+            <label id="label_DT" class="label_todos">Dureza Total (ppm):</label> <br>
+            <input id="input_DT" type="number" step="1" min="0" class="input_todos" onchange="calcular()" value="350" onkeypress="if (document.getElementById('input_DT').value < 0) {document.getElementById('input_DT').value = document.getElementById('input_DT').value * -1;}">            <br>
+            <span id="error_DT" class="error_input"></span>
+            <label id="label_Temperatura" class="label_todos">Temperatura (ºC):</label> <br>
+            <select id="input_temperatura" class="input_todos" onchange="calcular()">
+            <option value="0.130">5</option>
+            <option value="0.257">10</option>
+            <option value="0.376">15</option>
+            <option value="0.422">17</option>
+            <option value="0.466">19</option>
+            <option value="0.487">20</option>
+            <option value="0.500">21</option>
+            <option value="0.529">22</option>
+            <option value="0.550" selected>23</option>
+            <option value="0.570">24</option>
+            <option value="0.590">25</option>
+            <option value="0.610">26</option>
+            <option value="0.629">27</option>
+            <option value="0.648">28</option>
+            <option value="0.667">29</option>
+            <option value="0.685">30</option>
+            <option value="0.703">31</option>
+            <option value="0.721">32</option>
+            <option value="0.738">33</option>
+            <option value="0.755">34</option>
+            <option value="0.772">35</option>
+            <option value="0.789">36</option>
+            <option value="0.805">37</option>
+            <option value="0.820">38</option>
+            <option value="0.836">39</option>
+            <option value="0.851">40</option>
+          </select>
+            <br>
+
+
+        </div>
+
+        <div id="conteudo2" class="conteudo2">
+            <div id="container_resposta" class="container_resposta">
+                <p id="paragrafo_indice_de_saturacao" class="paragrafo_resposta">Índice de Saturação (IS) = </p>
+                <span id="paragrafo_resposta" class="paragrafo_resposta"></span><br>
+                <p id="paragrafo_respostaTxt" class="paragrafo_respostaTxt"></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        calcular();
+
+        function calcular() {
+            console.log("___________________________________________________________________________");
+            let error_validar = 0;
+            let pH = parseFloat(document.getElementById("input_ph").value);
+            console.log("pH = " + pH);
+
+            let AT = document.getElementById("input_AT").value;
+            let AC = document.getElementById("input_AC").value;
+            let DT = document.getElementById("input_DT").value;
+            let TemperaturaEl = document.getElementById("input_temperatura");
+            let Temperatura = TemperaturaEl.options[TemperaturaEl.selectedIndex].text;
+            let Dcalcica = 0;
+            let Abic = 0;
+
+
+            let Fstring = document.getElementById("input_ph").value;
+            //let F = Number(Fstring);
+
+            let FD = 0;
+            let FA = 0;
+            let FT = parseFloat(document.getElementById("input_temperatura").value);
+
+            let respostaN = document.getElementById("paragrafo_resposta");
+            let respostaTxt = document.getElementById("paragrafo_respostaTxt");
+
+            //CALCULAR F 2
+            //let F = Math.pow(((Math.pow(10, -pH)/1.47*Math.pow(10, -7)) + 1), -1) * 0.388;
+            let F1 = (Math.pow(10, -pH)) / (1.47 * Math.pow(10, -7));
+            let F2 = F1 + 1;
+            let F3 = Math.pow(F2, -1);
+            let F = parseFloat(F3 * 0.388);
+            console.log("F = " + F);
+            console.log("AT: " + AT);
+            console.log("AC: " + AC);
+            console.log("DT: " + DT);
+
+            //Calcular F
+            //F = ((-0.0893*Math.pow(pH, 2)) + (1.4714*pH) - 5.6943);
+            console.log("F = " + F);
+
+            //Calcular FD
+            //Calcular Dcalcica
+            Dcalcica = (DT * 0.7);
+
+            //Dcalcica negativa não pode. Aviso.
+            console.log("Dcalcica = " + Dcalcica);
+            FD = ((0.4348 * Math.log(Dcalcica)) - 0.395);
+
+            if (FD == "-Infinity" || FD == "Infinity") {
+                FD = 0;
+            }
+            console.log("FD = " + FD);
+
+            //Calcular Abic - lógica que nao pode ser negativo - dar erro
+            Abic = AT - (AC * F);
+
+            console.log("Abic = " + Abic);
+            FA = ((0.4349 * Math.log(Abic)) + 0.0044);
+
+            console.log("FA = " + FA);
+            //Calcular FT
+            //tornar temperatura selecionável
+            //FT = ((0.02*Temperatura) + 0.0766);
+
+            console.log("FT = " + FT);
+
+            //Calcular IS
+            let IS = pH + FD + FA + FT - 12.29;
+
+            console.log("IS = " + IS);
+            if (isNaN(IS) || IS == "-Infinity" || IS == "Infinity") {
+                IS = 0;
+            }
+
+            if (isNumber(IS)) {
+                respostaN.innerHTML = IS.toFixed(2);
+            }
+
+            if (AC * F >= AT) {
+                respostaTxt.innerHTML = "Valor da Alcalinidade Total muito abaixo do valor do Ácido Cianúrico";
+                respostaTxt.classList.remove("cor-violeta");
+                respostaTxt.classList.remove("cor-verde");
+                respostaTxt.classList.add("cor-vermelha");
+                respostaTxt.classList.remove("fonte-14");
+                respostaTxt.classList.add("fonte-pequena");
+                document.getElementById("input_AT").classList.add("background-red");
+                document.getElementById("paragrafo_resposta").innerHTML = "Error";
+            } else {
+                respostaTxt.classList.remove("fonte-pequena");
+                respostaTxt.classList.add("fonte-14");
+                document.getElementById("input_AT").classList.remove("background-red");
+
+                //Se IS <= 0.5
+                if (IS <= -0.5) {
+                    console.log("Água Corrosiva");
+                    respostaTxt.innerHTML = "Água Corrosiva";
+                    respostaTxt.classList.remove("cor-vermelha");
+                    respostaTxt.classList.remove("cor-verde");
+                    respostaTxt.classList.add("cor-violeta");
+
+                } else if (IS >= 0.5) {
+                    //Se IS >= 0.5
+                    console.log("Água Incrustante");
+                    respostaTxt.innerHTML = "Água Incrustante";
+                    respostaTxt.classList.remove("cor-violeta");
+                    respostaTxt.classList.remove("cor-verde");
+                    respostaTxt.classList.add("cor-vermelha");
+                } else {
+                    //Se IS > -0.5 e <0.5
+                    console.log("Água Balanceada");
+                    respostaTxt.innerHTML = "Água Balanceada";
+                    respostaTxt.classList.remove("cor-vermelha");
+                    respostaTxt.classList.remove("cor-violeta");
+                    respostaTxt.classList.add("cor-verde");
+
+                }
+
+                if (error_validar == 1) {
+                    console.log("[ERROR]");
+                    respostaTxt.innerHTML = "[ERROR]";
+                    respostaTxt.classList.remove("cor-verde");
+                    respostaTxt.classList.remove("cor-violeta");
+                    respostaTxt.classList.add("cor-vermelha");
+
+                }
+            }
+
+            function isNumber(val) {
+                return typeof val === "number";
+            }
+
+
+
+        }
+    </script>
+</body>
+
+</html>
